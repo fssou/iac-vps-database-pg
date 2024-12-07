@@ -1,0 +1,22 @@
+name: Deployment Database Postgres
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+
+jobs:
+  deployment:
+    uses: fssou/gh-workflows/.github/workflows/reusable-deploy-docker-compose-with-ssh.yaml@main
+    secrets:
+      ssh_key: ${{ secrets.SSH_KEY }}
+      ssh_host: ${{ secrets.SSH_HOST }}
+    with:
+      docker_compose_project_name: database-pg
+      docker_compose_recreate: false
+      destroy: false
