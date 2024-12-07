@@ -16,6 +16,8 @@ services:
       retries: 5
     volumes:
       - postgres:/var/lib/postgresql/data
+      - /etc/letsencrypt/live/francl.in/fullchain.pem:/var/lib/postgresql/server.crt:ro
+      - /etc/letsencrypt/live/francl.in/privkey.pem:/var/lib/postgresql/server.key:ro
     networks:
       database:
         aliases:
